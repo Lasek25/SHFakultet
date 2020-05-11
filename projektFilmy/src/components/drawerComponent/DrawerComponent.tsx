@@ -17,25 +17,23 @@ const DrawerComponent: React.FC<IDrawerComponentProps> = ({ shouldBeOpen }) => {
     const classes = makeClasses();
     const [isOpen, setIsOpen] = React.useState(false);
     const history = useHistory();
-
-    const RedirectTo = (path: string, name: string) => <div onClick={() => history.push(path)}>{name}</div>
-
+    const redirectTo = (path: string, name: string) => <div onClick={() => history.push(path)}>{name}</div>;
     return (
         <div>
             <Drawer
                 open={isOpen || shouldBeOpen}
-    onClose={() => setIsOpen(false)}
->
-    <div className={classes.drawerContent}>
-        <ul>
-            <li>{RedirectTo('/', 'Home')}</li>
-    <li>{RedirectTo('/movie', 'Movie')}</li>
-    <li>{RedirectTo('/search', 'Search Movie')}</li>
-    </ul>
-    </div>
-    </Drawer>
-    </div>
-);
+                onClose={() => setIsOpen(false)}
+            >
+                <div className={classes.drawerContent}>
+                    <ul>
+                        <li>{redirectTo('/', 'Home')}</li>
+                        <li>{redirectTo('/movie', 'Movie')}</li>
+                        <li>{redirectTo('/search', 'Search Movie')}</li>
+                    </ul>
+                </div>
+            </Drawer>
+        </div>
+    );
 };
 
 export default DrawerComponent;
