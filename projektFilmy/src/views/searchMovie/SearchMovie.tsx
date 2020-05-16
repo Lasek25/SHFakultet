@@ -9,12 +9,36 @@ import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { makeStyles } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 
 
 const useStyles = makeStyles({
-    table: {
-        minWidth: '650px',
-    }
+    container: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column'
+    },
+    cardContainer: {
+        display: 'flex',
+        justifyContent: 'center',
+        flexDirection: 'column',
+        alignSelf: 'center'
+    },
+    card: {
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        flexDirection: 'column',
+        textAlign: 'center',
+        border: 'solid 2px lightBlue'
+    },
+    input: {
+        display: 'flex',
+        justifyContent: 'center',
+        margin: '20px'
+    },
 });
 
 
@@ -37,37 +61,30 @@ const SearchMovie = () => {
     return (
         <div>
             <NavPanel/>
-            <input
-                placeholder="Enter movie name"
-                onChange={event => setMovieToSearch(event.target.value)}
-            />
-            <TableContainer component={Paper}>
-                <Table className={classes.table}>
-                    <TableHead>
-                        <TableRow>
-                            <TableCell> Poster</TableCell>
-                            <TableCell align="right"> Title</TableCell>
-                            <TableCell align="right"> Type</TableCell>
-                            <TableCell align="right"> Year</TableCell>
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
+            <div className={classes.container}>
+                <div className={classes.input}>
+                    <input
+                        placeholder="Enter movie name"
+                        onChange={event => setMovieToSearch(event.target.value)}
+                    />
+                </div>
+                <Card className={classes.cardContainer}>
+                    <CardContent className={classes.cardContainer}>
                         {!!movies?.movies.length &&
                         movies?.movies.map(movie => (
-                            <TableRow key={movie.id}>
-                                <TableCell>
+                            <TableRow key={movie.id} className={classes.card}>
+                                <Typography> {movie.title}</Typography>
+                                <Typography> {movie.year}</Typography>
+                                <Typography>
                                     <img src={movie.poster}
                                          alt={movie.title}/>
-                                </TableCell>
-                                <TableCell align="right"> {movie.title}</TableCell>
-                                <TableCell align="right"> {movie.type}</TableCell>
-                                <TableCell align="right"> {movie.year}</TableCell>
+                                </Typography>
                             </TableRow>
                         ))
                         }
-                    </TableBody>
-                </Table>
-            </TableContainer>
+                    </CardContent>
+                </Card>
+            </div>
         </div>
     );
 };

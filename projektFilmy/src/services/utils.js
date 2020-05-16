@@ -3,4 +3,4 @@ const http = {
 };
 
 export default http;
-export const URL = `http://www.omdbapi.com/?apikey=`;
+export const URL = `http://www.omdbapi.com/?apikey=${process.env.REACT_APP_FILMS_API_KEY}`;

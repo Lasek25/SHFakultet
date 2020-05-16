@@ -6,7 +6,6 @@ import Home from './views/home/Home';
 
 //yarn add @types/react-router-dom  @types/react-router
 
-
 const App = () => {
   return (
       <div>
