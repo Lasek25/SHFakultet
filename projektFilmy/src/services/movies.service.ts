@@ -111,7 +111,7 @@ interface IMovieResponse extends IMovieResposeProps {
     imdbVotes: string;
 }
 
-interface IMovieProps {
+export interface IMovieProps {
     production: string;
     plot: string;
     title: string;
@@ -124,6 +124,9 @@ interface IMovieProps {
     rating: string;
     votes: string;
     poster: string;
+    year: string;
+    id: string;
+    genre: string;
 }
 
 
@@ -155,8 +158,31 @@ const movieService = {
     searchById: async (id: string) => {
         try {
             const resultById: IMovieResponse = await http.get(API.SEARCH_BY_ID(id));
-            console.log(resultById);
-        } catch (e) {
+            if (resultById?.Error) {
+                console.log(resultById.Error);
+                return null;
+            } else {
+                const result: IMovieProps = {
+                    production: resultById.Production,
+                    plot: resultById.Plot,
+                    title: resultById.Title,
+                    ageRating: resultById.Rated,
+                    releaseDate: resultById.Released,
+                    writer: resultById.Writer,
+                    director: resultById.Director,
+                    actors: resultById.Actors,
+                    awards: resultById.Awards,
+                    rating: resultById.imdbRating,
+                    votes: resultById.imdbVotes,
+                    poster: resultById.Poster,
+                    year: resultById.Year,
+                    id: resultById.imdbID,
+                    genre: resultById.Genre,
+                };
+                return result;
+            }
+        }
+         catch (e) {
             console.log(e);
         }
     },
