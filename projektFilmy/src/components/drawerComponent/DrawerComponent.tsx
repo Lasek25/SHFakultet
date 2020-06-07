@@ -1,7 +1,12 @@
 import React from 'react';
-import { Drawer } from '@material-ui/core';
+import {Drawer, List, ListItem, ListItemIcon, ListItemText, Menu, MenuItem, MenuList} from '@material-ui/core';
 import { makeStyles, Theme } from '@material-ui/core/styles';
 import { useHistory } from 'react-router';
+import {NavLink} from "react-router-dom";
+import HomeIcon from '@material-ui/icons/Home';
+import MovieIcon from '@material-ui/icons/Movie';
+import SearchIcon from '@material-ui/icons/Search';
+import SearchMovie from "../../views/searchMovie/SearchMovie";
 
 const makeClasses = makeStyles((theme: Theme) => ({
     drawerContent: {
@@ -25,11 +30,29 @@ const DrawerComponent: React.FC<IDrawerComponentProps> = ({ shouldBeOpen }) => {
                 onClose={() => setIsOpen(false)}
             >
                 <div className={classes.drawerContent}>
-                    <ul>
-                        <li>{redirectTo('/', 'Home')}</li>
-                        <li>{redirectTo('/movie', 'Movie')}</li>
-                        <li>{redirectTo('/search', 'Search Movie')}</li>
-                    </ul>
+                    <MenuList>
+                        <MenuItem component={NavLink} to='/'>
+                            <ListItemIcon>
+                                <HomeIcon />
+                            </ListItemIcon>
+                            <ListItemText primary="Home" />
+                        </MenuItem>
+                        <MenuItem component={NavLink} to='/movie'>
+                            <ListItemIcon>
+                                <MovieIcon />
+                            </ListItemIcon>
+                            <ListItemText primary='Movie'/>
+                        </MenuItem>
+                        <MenuItem component={NavLink} to='/search'>
+                            <ListItemIcon>
+                                <SearchIcon />
+                            </ListItemIcon>
+                            <ListItemText primary='Search Movie'/>
+                        </MenuItem>
+                    </MenuList>
+                    {/*<li>{redirectTo('/', 'Home')}</li>*/}
+                    {/*<li>{redirectTo('/movie', 'Movie')}</li>*/}
+                    {/*<li>{redirectTo('/search', 'Search Movie')}</li>*/}
                 </div>
             </Drawer>
         </div>
