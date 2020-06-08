@@ -6,6 +6,7 @@ import Home from './views/home/Home';
 import {Provider} from "react-redux";
 import store from "./store";
 import TodoPanel from "./views/todoPanel/TodoPanel";
+import Favourites from "./views/favourites/Favourites";
 
 //yarn add @types/react-router-dom  @types/react-router
 
@@ -18,6 +19,7 @@ const App = () => {
                   <Route path="/movie/:id" component={Movie} />
                   <Route path="/search" component={SearchMovie} />
                   <Route path="/todo" component={TodoPanel}/>
+                  <Route path="/favourites" component={Favourites}/>
                   <Route path="/" component={Home} />
                 </Switch>
             </Provider>

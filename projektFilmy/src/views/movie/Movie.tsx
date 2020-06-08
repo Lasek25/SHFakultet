@@ -3,12 +3,20 @@ import NavPanel from '../../components/navPanel/NavPanel'
 import movieService, {IMovieProps} from "../../services/movies.service";
 import {makeStyles} from "@material-ui/core/styles";
 import {Grid, TableCell, TableRow} from "@material-ui/core";
+import {useService} from "../../hooks/useService";
+import {FavouriteMovieService} from "../../services/favourite.service";
+import {useSelector} from "react-redux";
+import {favouritesSelector} from "../../store/selectors/favourites.selector";
 
 const useStyles = makeStyles({
     poster: {
         display: 'flex',
         marginTop: '10px',
-        marginBottom: '10px'
+        marginBottom: '10px',
+        flexDirection: 'column',
+    },
+    button: {
+        marginTop: '15px'
     },
 });
 
@@ -16,6 +24,8 @@ const Movie = (props:any) => {
     const classes = useStyles();
     const [movie, setMovie] = React.useState<IMovieProps | null>();
     const id = props.match.params.id;
+    const favouriteMovieService = useService(FavouriteMovieService);
+    const favourites = useSelector(favouritesSelector);
 
     React.useEffect(() => {
         movieService.searchById(id).then(resp => {
@@ -24,6 +34,10 @@ const Movie = (props:any) => {
             }
         });
     },[id]);
+
+    const handleAddFilm = (movie : IMovieProps) => {
+        favouriteMovieService.addMovie(movie);
+    };
 
     return (
         <div>
@@ -35,6 +49,9 @@ const Movie = (props:any) => {
                             <img src={movie.poster}
                                  alt={movie.title}
                             />
+                            <button onClick={() => handleAddFilm(movie)} className={classes.button}>
+                                Add to favourites
+                            </button>
                         </Grid>
                         <Grid item md={7}>
                             <TableRow>
